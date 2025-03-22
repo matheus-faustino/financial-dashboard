@@ -66,4 +66,18 @@ class TagRepository extends BaseRepository implements TagRepositoryInterface
             ->withCount('transactions')
             ->get();
     }
+
+    /**
+     * Get tags by user and names
+     * 
+     * @param int $userId
+     * @param array $tagNames
+     * @return Collection
+     */
+    public function findTagsByNames(int $userId, array $tagNames): Collection
+    {
+        return $this->model->forUser($userId)
+            ->whereIn('name', $tagNames)
+            ->get();
+    }
 }

@@ -38,4 +38,13 @@ interface TagRepositoryInterface extends RepositoryInterface
      * @return Collection
      */
     public function findTagsWithTransactionCount(int $userId): Collection;
+
+    /**
+     * Get tags by user and names
+     * 
+     * @param int $userId
+     * @param array $tagNames
+     * @return Collection
+     */
+    public function findTagsByNames(int $userId, array $tagNames): Collection;
 }

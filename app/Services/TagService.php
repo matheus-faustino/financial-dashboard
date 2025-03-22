@@ -85,10 +85,7 @@ class TagService extends BaseService implements TagServiceInterface
         $tagNames = array_filter($tagNames);
 
         // Get existing tags with these names to avoid duplicates
-        $existingTags = $this->repository->findWhere([
-            ['user_id', '=', $userId],
-            ['name', 'in', $tagNames]
-        ]);
+        $existingTags = $this->repository->findTagsByNames($userId, $tagNames);
 
         $existingTagNames = $existingTags->pluck('name')->toArray();
 
@@ -111,7 +108,7 @@ class TagService extends BaseService implements TagServiceInterface
             }
 
             DB::commit();
-            
+
             return $tags;
         } catch (\Exception $e) {
             DB::rollback();

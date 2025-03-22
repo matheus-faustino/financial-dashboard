@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('payment_method');
             $table->string('location')->nullable();
             $table->boolean('is_recurring')->default(false);
-            $table->string('recurrence_patten')->nullable();
+            $table->string('recurrence_pattern')->nullable();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Category::class);
             $table->timestamps();

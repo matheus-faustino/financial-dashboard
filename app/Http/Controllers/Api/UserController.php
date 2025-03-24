@@ -21,6 +21,8 @@ class UserController extends Controller
     public function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
+
+        $this->authorizeResource(User::class);
     }
 
     /**
@@ -72,10 +74,6 @@ class UserController extends Controller
      */
     public function destroy(User $user): JsonResponse
     {
-        if ($user->id === Auth::id()) {
-            return response()->json(['message' => 'You cannot delete your own account'], 403);
-        }
-
         $this->userService->delete($user->id);
 
         return response()->json(['message' => 'User deleted successfully'], 200);

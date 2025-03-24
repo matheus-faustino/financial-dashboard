@@ -19,7 +19,7 @@ A web-based financial dashboard system that enables users to track transactions,
 
 ## Requirements
 
-- PHP 8.1+
+- PHP 8.4+
 - Composer
 - Database (MySQL)
 

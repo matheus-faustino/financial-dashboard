@@ -1,66 +1,214 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Financial Dashboard System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web-based financial dashboard system that enables users to track transactions, view financial analytics, and access customized reports with role-based access control.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **User Management**: Role-based system (Admin, Manager, User) with different permissions
+- **Transaction Management**: Track income, expenses, and investments with categorization
+- **Data Visualization**: Charts and graphs for financial analysis 
+- **Reporting**: Custom financial reports with export capabilities
+- **Tags**: Tag-based organization for transactions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Backend: Laravel 10
+- Database: MySQL/PostgreSQL/SQLite
+- Repository Pattern + Service Layer Architecture
+- API-first approach for easy frontend integration
 
-## Learning Laravel
+## Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.1+
+- Composer
+- Database (MySQL, PostgreSQL, or SQLite)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Method 1: Standard Installation
 
-## Laravel Sponsors
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/financial-dashboard.git
+   cd financial-dashboard
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Install dependencies:
+   ```bash
+   composer install
+   ```
 
-### Premium Partners
+3. Copy the environment file:
+   ```bash
+   cp .env.example .env
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+4. Generate application key:
+   ```bash
+   php artisan key:generate
+   ```
+
+5. Configure your database connection in the `.env` file:
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=financial_dashboard
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+   Or for SQLite (simpler setup):
+   ```
+   DB_CONNECTION=sqlite
+   ```
+   Then create the database file:
+   ```bash
+   touch database/database.sqlite
+   ```
+
+6. Run migrations and seed the database:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+7. Start the development server:
+   ```bash
+   php artisan serve
+   ```
+
+### Method 2: Using Docker
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/financial-dashboard.git
+   cd financial-dashboard
+   ```
+
+2. Build and start the containers:
+   ```bash
+   docker-compose up -d
+   ```
+
+3. Run migrations and seed the database:
+   ```bash
+   docker-compose exec app php artisan migrate --seed
+   ```
+
+4. Generate application key:
+   ```bash
+   docker-compose exec app php artisan key:generate
+   ```
+
+5. Access the application at `http://localhost:8000`
+
+## User Roles and Permissions
+
+### Administrator
+- Complete system access
+- Can manage all users, categories, and reports
+- Can delete or deactivate any account
+- Can reset passwords for any user
+
+### Manager
+- Can register and manage users
+- Can create reports for users
+- Cannot register new managers or administrators
+- Cannot reset passwords
+
+### User
+- Can register transactions
+- Can create custom categories
+- Can apply tags to transactions
+- Can view their financial data and reports
+
+## API Routes
+
+The system uses a RESTful API structure:
+
+- **Authentication**: `/api/login`, `/api/logout`
+- **Transactions**: `/api/transactions`
+- **Categories**: `/api/categories`
+- **Tags**: `/api/tags`
+- **Users**: `/api/users` (Admin/Manager only)
+- **Dashboard**: `/api/dashboard`
+
+### Sample API Calls
+
+#### Login
+```bash
+curl -X POST http://localhost:8000/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "admin@example.com", "password": "password"}'
+```
+
+#### Get Transactions
+```bash
+curl -X GET http://localhost:8000/api/transactions \
+  -H "Authorization: Bearer {your_token}"
+```
+
+#### Create Transaction
+```bash
+curl -X POST http://localhost:8000/api/transactions \
+  -H "Authorization: Bearer {your_token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 100.50,
+    "date": "2025-03-24",
+    "description": "Grocery shopping",
+    "payment_method": "Credit Card",
+    "category_id": 1,
+    "tags": ["food", "essentials"]
+  }'
+```
+
+## Testing
+
+Run the test suite with:
+
+```bash
+php artisan test
+```
+
+### Creating Test Cases
+
+1. Create a new test:
+   ```bash
+   php artisan make:test FeatureNameTest
+   ```
+
+2. Write your test using the Laravel testing framework.
+
+3. Run specific tests:
+   ```bash
+   php artisan test --filter=TestClassName
+   ```
+
+## Default Login
+
+After seeding the database, you can log in with:
+
+- **Email**: admin@example.com
+- **Password**: password
+
+## Directory Structure
+
+- `app/Http/Controllers/Api` - API controllers
+- `app/Models` - Database models
+- `app/Repositories` - Repository pattern implementation
+- `app/Services` - Service layer
+- `app/Policies` - Authorization policies
+- `database/migrations` - Database structure
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -m 'Add feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a pull request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the LICENSE file for details.

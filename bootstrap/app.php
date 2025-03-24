@@ -12,6 +12,7 @@ use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -58,5 +59,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->report(function (ThrottleRequestsException $e) {
             return response()->json(['message' => 'Too many requests'], 429);
+        });
+
+        $exceptions->report(function (RouteNotFoundException $e) {
+            return response()->json(['message' => 'Required route is not defined'], 500);
         });
     })->create();

@@ -18,8 +18,6 @@ class TagController extends Controller
     public function __construct(TagServiceInterface $tagService)
     {
         $this->tagService = $tagService;
-
-        $this->authorizeResource(Tag::class, 'tag');
     }
 
     /**

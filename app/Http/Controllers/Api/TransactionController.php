@@ -25,8 +25,6 @@ class TransactionController extends Controller
     ) {
         $this->transactionService = $transactionService;
         $this->tagService = $tagService;
-
-        $this->authorizeResource(Transaction::class, 'transaction');
     }
 
     /**

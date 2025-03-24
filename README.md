@@ -12,8 +12,8 @@ A web-based financial dashboard system that enables users to track transactions,
 
 ## Tech Stack
 
-- Backend: Laravel 10
-- Database: MySQL/PostgreSQL/SQLite
+- Backend: Laravel 12
+- Database: MySQL and SQLite (for testing)
 - Repository Pattern + Service Layer Architecture
 - API-first approach for easy frontend integration
 
@@ -21,7 +21,7 @@ A web-based financial dashboard system that enables users to track transactions,
 
 - PHP 8.1+
 - Composer
-- Database (MySQL, PostgreSQL, or SQLite)
+- Database (MySQL)
 
 ## Installation
 

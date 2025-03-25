@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -53,6 +54,14 @@ class UpdateUserRequest extends FormRequest
                 $this->input('manager_id') !== null
             ) {
                 $validator->errors()->add('manager_id', 'Admin users cannot have a manager.');
+            }
+
+            // Prevent assigning a manager to a manager
+            if ($this->input('manager_id') !== null) {
+                $manager = User::find($this->input('manager_id'));
+                if ($manager && $manager->isManager() && $this->user->isManager()) {
+                    $validator->errors()->add('manager_id', 'Managers cannot be managed by other managers.');
+                }
             }
         });
     }

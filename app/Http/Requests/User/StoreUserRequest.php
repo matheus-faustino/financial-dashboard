@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use App\Enums\RoleEnum;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password;
@@ -55,6 +56,17 @@ class StoreUserRequest extends FormRequest
                 $this->input('role') !== RoleEnum::USER->value
             ) {
                 $validator->errors()->add('role', 'Managers can only create users with "user" role.');
+            }
+
+            // Ensure managers can't manage other managers
+            if (
+                $this->input('role') === RoleEnum::MANAGER->value &&
+                $this->input('manager_id') !== null
+            ) {
+                $manager = User::find($this->input('manager_id'));
+                if ($manager && $manager->isManager()) {
+                    $validator->errors()->add('manager_id', 'Managers cannot be managed by other managers.');
+                }
             }
         });
     }

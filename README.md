@@ -7,7 +7,6 @@ A web-based financial dashboard system that enables users to track transactions,
 - **User Management**: Role-based system (Admin, Manager, User) with different permissions
 - **Transaction Management**: Track income, expenses, and investments with categorization
 - **Data Visualization**: Charts and graphs for financial analysis 
-- **Reporting**: Custom financial reports with export capabilities
 - **Tags**: Tag-based organization for transactions
 
 ## Tech Stack
@@ -87,17 +86,17 @@ A web-based financial dashboard system that enables users to track transactions,
 
 2. Build and start the containers:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 3. Run migrations and seed the database:
    ```bash
-   docker-compose exec app php artisan migrate --seed
+   docker compose exec app php artisan migrate --seed
    ```
 
 4. Generate application key:
    ```bash
-   docker-compose exec app php artisan key:generate
+   docker compose exec app php artisan key:generate
    ```
 
 5. Access the application at `http://localhost:8000`
@@ -120,7 +119,7 @@ A web-based financial dashboard system that enables users to track transactions,
 - Can register transactions
 - Can create custom categories
 - Can apply tags to transactions
-- Can view their financial data and reports
+- Can view their financial data
 
 ## API Routes
 

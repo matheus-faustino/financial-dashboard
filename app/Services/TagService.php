@@ -54,7 +54,7 @@ class TagService extends BaseService implements TagServiceInterface
      */
     public function searchTags(string $search, ?int $userId = null): Collection
     {
-        return $this->repository->searchTags($search, $userId);
+        return $this->repository->findTagsBySearch($search, $userId);
     }
 
     /**

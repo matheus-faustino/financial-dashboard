@@ -37,13 +37,13 @@ class TagRepository extends BaseRepository implements TagRepositoryInterface
     }
 
     /**
-     * Search tags by name
+     * Get tags based on a search criteria
      * 
      * @param string $search
      * @param int|null $userId
      * @return Collection
      */
-    public function searchTags(string $search, ?int $userId = null): Collection
+    public function findTagsBySearch(string $search, ?int $userId = null): Collection
     {
         $query = $this->model->search($search);
 

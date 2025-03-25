@@ -23,13 +23,13 @@ interface TagRepositoryInterface extends RepositoryInterface
     public function findTagsByFrequency(int $userId): Collection;
 
     /**
-     * Search tags by name
+     * Get tags based on a search criteria
      * 
      * @param string $search
      * @param int|null $userId
      * @return Collection
      */
-    public function searchTags(string $search, ?int $userId = null): Collection;
+    public function findTagsBySearch(string $search, ?int $userId = null): Collection;
 
     /**
      * Get tags with transaction count

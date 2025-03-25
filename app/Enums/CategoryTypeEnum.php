@@ -6,5 +6,5 @@ enum CategoryTypeEnum: string
 {
     case INCOME = 'income';
     case EXPENSE = 'expense';
-    case INVESTMENT = 'investiment';
+    case INVESTMENT = 'investment';
 }

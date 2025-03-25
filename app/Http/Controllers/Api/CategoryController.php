@@ -30,7 +30,7 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryService->getCategoriesForUser($request->user()->id);
 
-        return response()->json(['categoriews' => $categories]);
+        return response()->json(['categories' => $categories]);
     }
 
     /**

@@ -26,7 +26,7 @@ class CategoryControllerTest extends TestCase
 
         $response->assertStatus(200);
         // The number of categories should be 4 (3 user categories + 1 system category)
-        $this->assertEquals(4, count(json_decode($response->getContent(), true)['categoriews']));
+        $this->assertEquals(4, count(json_decode($response->getContent(), true)['categories']));
     }
 
     public function testStore()

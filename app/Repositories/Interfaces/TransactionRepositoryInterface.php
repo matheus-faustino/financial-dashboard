@@ -59,22 +59,4 @@ interface TransactionRepositoryInterface extends RepositoryInterface
      * @return Collection
      */
     public function findRecurringTransactions(?int $userId = null): Collection;
-
-    /**
-     * Attach tags to a transaction
-     * 
-     * @param int $transactionId
-     * @param array $tagIds
-     * @return bool
-     */
-    public function attachTags(int $transactionId, array $tagIds): bool;
-
-    /**
-     * Detach tags from a transaction
-     * 
-     * @param int $transactionId
-     * @param array|null $tagIds
-     * @return bool
-     */
-    public function detachTags(int $transactionId, ?array $tagIds = null): bool;
 }

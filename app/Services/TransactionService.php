@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Enums\CategoryTypeEnum;
 use App\Repositories\Interfaces\TransactionRepositoryInterface;
 use App\Services\Interfaces\TransactionServiceInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 class TransactionService extends BaseService implements TransactionServiceInterface
@@ -102,7 +103,15 @@ class TransactionService extends BaseService implements TransactionServiceInterf
      */
     public function addTagsToTransaction(int $transactionId, array $tagIds): bool
     {
-        return $this->repository->attachTags($transactionId, $tagIds);
+        $transaction = $this->repository->find($transactionId);
+
+        if (!$transaction) {
+            throw new ModelNotFoundException("Transaction with ID {$transactionId} was not found in database.");
+        }
+
+        $transaction->tags()->attach($tagIds);
+
+        return true;
     }
 
     /**
@@ -114,7 +123,15 @@ class TransactionService extends BaseService implements TransactionServiceInterf
      */
     public function removeTagsFromTransaction(int $transactionId, ?array $tagIds = null): bool
     {
-        return $this->repository->detachTags($transactionId, $tagIds);
+        $transaction = $this->repository->find($transactionId);
+
+        if (!$transaction) {
+            throw new ModelNotFoundException("Transaction with ID {$transactionId} was not found in database.");
+        }
+
+        $transaction->tags()->detach($tagIds);
+
+        return true;
     }
 
     /**

@@ -117,42 +117,4 @@ class TransactionRepository extends BaseRepository implements TransactionReposit
 
         return $query->get();
     }
-
-    /**
-     * Attach tags to a transaction
-     * 
-     * @param int $transactionId
-     * @param array $tagIds
-     * @return bool
-     */
-    public function attachTags(int $transactionId, array $tagIds): bool
-    {
-        $transaction = $this->find($transactionId);
-
-        if (!$transaction) {
-            return false;
-        }
-
-        $transaction->tags()->attach($tagIds);
-        return true;
-    }
-
-    /**
-     * Detach tags from a transaction
-     * 
-     * @param int $transactionId
-     * @param array|null $tagIds
-     * @return bool
-     */
-    public function detachTags(int $transactionId, ?array $tagIds = null): bool
-    {
-        $transaction = $this->find($transactionId);
-
-        if (!$transaction) {
-            return false;
-        }
-
-        $transaction->tags()->detach($tagIds);
-        return true;
-    }
 }
